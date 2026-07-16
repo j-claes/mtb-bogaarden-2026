@@ -14,9 +14,9 @@
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(135deg, #f6fff8 0%, #e9f7ee 100%);
-  color: #15311f;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, #4ba568 0%, #58b96c 40%, #eff8ef 100%);
+  color: #1f3620;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,11 +24,39 @@ body {
 }
 
 .card {
-  width: min(100%, 560px);
-  background: rgba(255, 255, 255, 0.96);
-  border-radius: 20px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-  padding: 24px;
+  width: min(100%, 620px);
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(13, 47, 24, 0.16);
+  padding: 26px;
+  border: 1px solid rgba(46, 115, 64, 0.12);
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
+  padding: 16px;
+  background: #f7fffa;
+  border-radius: 18px;
+  border: 1px solid rgba(46, 115, 64, 0.14);
+}
+
+.logo {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+}
+
+.hero h1 {
+  margin: 0 0 6px;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+}
+
+.hero p {
+  margin: 0;
+  color: #365a42;
 }
 
 h1 {
@@ -45,7 +73,7 @@ p {
 
 .route-list {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .route {
@@ -84,15 +112,15 @@ p {
 }
 
 .route-27 {
-  background: linear-gradient(135deg, #2c7a3f, #3ca557);
+  background: linear-gradient(135deg, #297745, #52b05d);
 }
 
 .route-45 {
-  background: linear-gradient(135deg, #2b6cb0, #4a90e2);
+  background: linear-gradient(135deg, #2465a5, #4fa3dc);
 }
 
 .route-52 {
-  background: linear-gradient(135deg, #b33a3a, #d95a5a);
+  background: linear-gradient(135deg, #a63d3d, #e46d6d);
 }
 
 .status {
@@ -159,8 +187,13 @@ p {
 
 <body>
   <main class="card">
-    <h1>MTB Avondrit Bogaarden 2026</h1>
-    <p>Kies de gewenste route en download de GPX direct.</p>
+    <div class="hero">
+      <img class="logo" src="dorpsfeesten-logo.png" alt="Dorpsfeesten Bogaarden logo">
+      <div>
+        <h1>MTB Avondrit Bogaarden 2026</h1>
+        <p>Kies de gewenste route en download de GPX direct.</p>
+      </div>
+    </div>
 
     <div class="route-list">
       <a class="route route-27" href="bogaarden-mtb-2026-27km.gpx">
