@@ -118,6 +118,32 @@ p {
   border-color: #c7e8d1;
 }
 
+.contact {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fff7e8;
+  border: 1px solid #f0d8a5;
+  text-align: left;
+}
+
+.contact strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #7a4a12;
+}
+
+.contact a {
+  color: #b45309;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.contact a:hover,
+.contact a:focus-visible {
+  text-decoration: underline;
+}
+
 @media (max-width: 480px) {
   .card {
     padding: 20px 16px;
@@ -154,7 +180,12 @@ p {
     </div>
 
     <div id="status" class="status" role="status" aria-live="polite">
-      Tap a route to start the download.
+      Tik op een route om de download te starten.
+    </div>
+
+    <div class="contact" role="note">
+      <strong>Pech of probleem?</strong>
+      Bel <a href="tel:+31600000000">+31 6 0000 0000</a>
     </div>
   </main>
 
@@ -176,7 +207,7 @@ p {
     routeLinks.forEach((link) => {
       link.addEventListener('click', async () => {
         const routeName = link.textContent.trim().replace(/GPX/g, '').trim();
-        setStatus(`Download started for ${routeName}...`, 'loading');
+        setStatus(`Download gestart voor ${routeName}...`, 'loading');
 
         if (navigator.vibrate) {
           navigator.vibrate(80);
@@ -190,11 +221,11 @@ p {
           }
         }
 
-        maybeNotify('Download started', `${routeName} is being downloaded.`);
+        maybeNotify('Download gestart', `${routeName} wordt gedownload.`);
 
         window.setTimeout(() => {
-          setStatus(`${routeName} download is being processed.`, 'success');
-          maybeNotify('Download ready', `${routeName} is ready in your downloads.`);
+          setStatus(`${routeName} wordt verwerkt.`, 'success');
+          maybeNotify('Download klaar', `${routeName} is klaar in je downloads.`);
         }, 1200);
       });
     });
