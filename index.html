@@ -95,6 +95,29 @@ p {
   background: linear-gradient(135deg, #b33a3a, #d95a5a);
 }
 
+.status {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f2f7f2;
+  color: #33553b;
+  border: 1px solid #d7e7dc;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.status.loading {
+  background: #eef6ff;
+  color: #234d6b;
+  border-color: #cce2f3;
+}
+
+.status.success {
+  background: #eefbf2;
+  color: #2f5f3b;
+  border-color: #c7e8d1;
+}
+
 @media (max-width: 480px) {
   .card {
     padding: 20px 16px;
@@ -129,6 +152,52 @@ p {
         <span class="meta">GPX</span>
       </a>
     </div>
+
+    <div id="status" class="status" role="status" aria-live="polite">
+      Tap a route to start the download.
+    </div>
   </main>
+
+  <script>
+    const status = document.getElementById('status');
+    const routeLinks = document.querySelectorAll('.route');
+
+    function setStatus(message, tone = 'default') {
+      status.textContent = message;
+      status.className = `status ${tone}`.trim();
+    }
+
+    function maybeNotify(title, body) {
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification(title, { body, icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="%232c7a3f"/><path d="M32 12v24m0 0l-8-8m8 8l8-8M18 42h28" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>' });
+      }
+    }
+
+    routeLinks.forEach((link) => {
+      link.addEventListener('click', async () => {
+        const routeName = link.textContent.trim().replace(/GPX/g, '').trim();
+        setStatus(`Download started for ${routeName}...`, 'loading');
+
+        if (navigator.vibrate) {
+          navigator.vibrate(80);
+        }
+
+        if ('Notification' in window && Notification.permission === 'default') {
+          try {
+            await Notification.requestPermission();
+          } catch (error) {
+            // Ignore browser permission issues.
+          }
+        }
+
+        maybeNotify('Download started', `${routeName} is being downloaded.`);
+
+        window.setTimeout(() => {
+          setStatus(`${routeName} download is being processed.`, 'success');
+          maybeNotify('Download ready', `${routeName} is ready in your downloads.`);
+        }, 1200);
+      });
+    });
+  </script>
 </body>
 </html>
